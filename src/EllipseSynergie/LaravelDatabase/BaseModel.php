@@ -137,6 +137,3 @@ class BaseModel extends Eloquent {
 		}
 	}
 }
-
-class ObserverNotFound extends \RuntimeException{}
-class ValidationServiceNotFound extends \RuntimeException{}

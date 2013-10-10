@@ -17,7 +17,8 @@
     },
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/migrations",
+            "src/EllipseSynergie/LaravelDatabase/Exceptions.php",
         ],
         "psr-0": {
             "EllipseSynergie\\LaravelDatabase": "src/"
