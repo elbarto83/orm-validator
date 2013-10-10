@@ -183,3 +183,6 @@ class Account extends BaseModel {
 }
 ```
 
+## Using the Laravel base model
+To do ..
+
