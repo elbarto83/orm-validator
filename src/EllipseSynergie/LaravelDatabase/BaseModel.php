@@ -40,14 +40,27 @@ class BaseModel extends Eloquent {
 	 */
 	public function validate($action = 'creating')
 	{
+		//Factory the validator
+		$validatorFactory = new Factory(app('translator'), app());
+		
+		//Create the service validation class name
+		$service = "\\Validation\\" . get_called_class();
+		
+		//Check if the validation service class exist
+		if (class_exists($service)) {
+			
+			//Create the validator
+			$validator = new $service($this->getAttributes(), $validatorFactory);
+			
+		//Else the observer is not found
+		} else {
+			throw new ValidationServiceNotFound;
+		}
+		
 		//Try to validate
 		try
-		{
-			$validatorFactory = new Factory(app('translator'), app());
-			$service = "\\Validation\\" . get_called_class();
-			$validator = new $service($this->getAttributes(), $validatorFactory);	
-			
-			//Validation
+		{			
+			//Validate the action
 			$validator->{$action}();
 		}
 		
@@ -126,3 +139,4 @@ class BaseModel extends Eloquent {
 }
 
 class ObserverNotFound extends \RuntimeException{}
+class ValidationServiceNotFound extends \RuntimeException{}
