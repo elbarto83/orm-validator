@@ -17,7 +17,7 @@ class BaseModel extends Eloquent {
         parent::boot();        
         
 		// Setup event bindings using observer
-		$observer = 'Observer\\' . get_called_class();
+		$observer = '\\Observer\\' . get_called_class();
 		self::observe(new $observer);
     }
 
@@ -33,7 +33,7 @@ class BaseModel extends Eloquent {
 		try
 		{
 			$validatorFactory = new Factory(app('translator'), app());
-			$service = "Validation\\" . get_called_class();
+			$service = "\\Validation\\" . get_called_class();
 			$validator = new $service($this->getAttributes(), $validatorFactory);	
 			
 			//Validation
