@@ -1,6 +1,7 @@
 <?php namespace EllipseSynergie\LaravelDatabase;
 
 use Illuminate\Validation\Factory;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
  * Base model
@@ -58,7 +59,7 @@ class BaseModel extends Eloquent {
 		$account = self::findOrFail($id);
 			
 		//Put entry into the cache
-		Cache::section(get_called_class())->put($id, $account, Config::get('cache.maxtime'));
+		\Cache::section(get_called_class())->put($id, $account, Config::get('cache.maxtime'));
 		
 		return $account;
 	}
@@ -99,7 +100,7 @@ class BaseModel extends Eloquent {
 	public function getByIdFromCache($id)
 	{
 		//Get form cache
-		$account = Cache::section(get_called_class())->get($id);
+		$account = \Cache::section(get_called_class())->get($id);
 		
 		//If cache not empty
 		if ($account) {
