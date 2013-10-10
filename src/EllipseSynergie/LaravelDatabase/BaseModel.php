@@ -19,7 +19,17 @@ class BaseModel extends Eloquent {
         
 		// Setup event bindings using observer
 		$observer = '\\Observer\\' . get_called_class();
-		self::observe(new $observer);
+		
+		//Check if the observer class exist
+		if (class_exists($observer)) {
+			
+			//Create the observer
+			self::observe(new $observer);
+			
+		//Else the observer is not found
+		} else {
+			throw new ObserverNotFound;
+		}
     }
 
 	/**
@@ -114,3 +124,5 @@ class BaseModel extends Eloquent {
 		}
 	}
 }
+
+class ObserverNotFound extends \RuntimeException{}
