@@ -4,20 +4,20 @@ Self-validating, secure and smart models for Laravel 4's Eloquent ORM using [Mod
 
 ### Status
 
-[![Build Status](https://travis-ci.org/ellipsesynergie/laravel-database.png?branch=master)](https://travis-ci.org/ellipsesynergie/laravel-database)
-[![Total Downloads](https://poser.pugx.org/ellipsesynergie/laravel-database/downloads.png)](https://packagist.org/packages/ellipsesynergie/laravel-database)
-[![Latest Stable Version](https://poser.pugx.org/ellipsesynergie/laravel-database/v/stable.png)](https://packagist.org/packages/ellipsesynergie/laravel-database)
+[![Build Status](https://travis-ci.org/ellipsesynergie/orm-validator.png?branch=master)](https://travis-ci.org/ellipsesynergie/orm-validator)
+[![Total Downloads](https://poser.pugx.org/ellipsesynergie/orm-validator/downloads.png)](https://packagist.org/packages/ellipsesynergie/orm-validator)
+[![Latest Stable Version](https://poser.pugx.org/ellipsesynergie/orm-validator/v/stable.png)](https://packagist.org/packages/ellipsesynergie/orm-validator)
 
 ## Documentation
 
 ##Installation
 
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `ellipsesynergie/laravel-database`.
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `ellipsesynergie/orm-validator`.
 
 ```javascript
 {
     "require": {
-        "ellipsesynergie/laravel-database": "dev-master"
+        "ellipsesynergie/orm-validator": "dev-master"
     }
 }
 ```
@@ -29,7 +29,7 @@ Update your packages with `composer update` or install with `composer install`.
 To configure the package to meet your needs, you must publish the configuration in your application before you can modify them. Run this artisan command.
 
 ```bash
-php artisan config:publish ellipsesynergie/laravel-database
+php artisan config:publish ellipsesynergie/orm-validator
 ```
 
 ## Getting Started
