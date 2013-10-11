@@ -94,3 +94,23 @@ class Account extends ValidationService {
 }
 ```
 
+## Retrieving Validation Errors
+
+When an `EllipseSynergie\LaravelDatabase\BaseModel` model fails to validate, a `EllipseSynergie\LaravelDatabase\Services\ValidateException` is throw. You can catch the Exception like this :
+
+```php
+
+try
+{
+	$account = new Account;
+	$account->user_id = 'foo';
+	$account->save();
+	
+	//Success !!!
+}
+catch (EllipseSynergie\LaravelDatabase\Services\ValidateException $e)
+{
+	//Retrive the Illuminate\Validation\Validator object so you can use it exactly like http://laravel.com/docs/validation
+	$validator = $e->getValidator();
+}
+```
