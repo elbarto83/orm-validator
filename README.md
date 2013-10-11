@@ -1,6 +1,6 @@
 # Laravel Database
 
-Self-validating, secure and smart models for Laravel 4's Eloquent ORM using Model Observer (http://laravel.com/docs/eloquent#model-observers) and advanced Validation service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
+Self-validating, secure and smart models for Laravel 4's Eloquent ORM using [Model Observer](http://laravel.com/docs/eloquent#model-observers) and advanced Validation service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
 
 ### Status
 
