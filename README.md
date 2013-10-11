@@ -34,7 +34,7 @@ php artisan config:publish ellipsesynergie/laravel-database
 
 ## Getting Started
 
-`EllipseSynergie\LaravelDatabase\BaseModel` aims to extend the `Eloquent` base class without changing its core functionality. Since `EllipseSynergie\LaravelDatabase\BaseModel` itself is a descendant of `Illuminate\Database\Eloquent\Model`, all your `Ardent` models are fully compatible with `Eloquent` and can harness the full power of Laravels awesome ORM.
+`EllipseSynergie\LaravelDatabase\BaseModel` aims to extend the `Eloquent` base class without changing its core functionality. Since `EllipseSynergie\LaravelDatabase\BaseModel` itself is a descendant of `Illuminate\Database\Eloquent\Model`, all your `EllipseSynergie\LaravelDatabase\BaseModel` models are fully compatible with `Eloquent` and can harness the full power of Laravels awesome ORM.
 
 To create a new `EllipseSynergie\LaravelDatabase\BaseModel` model, simply make your model class derive from the `EllipseSynergie\LaravelDatabase\BaseModel` base class.
 
