@@ -110,7 +110,17 @@ try
 }
 catch (EllipseSynergie\LaravelDatabase\Services\ValidateException $e)
 {
-	//Retrive the Illuminate\Validation\Validator object so you can use it exactly like http://laravel.com/docs/validation
+	// Retrive the Illuminate\Validation\Validator object
+	// so you can use it exactly like http://laravel.com/docs/validation
 	$validator = $e->getValidator();
+	
+	// Get messages
+	$messages = $validator->messages();
+	
+	// Retrieving All Error Messages For All Fields
+	foreach ($messages->all() as $message)
+	{
+		//
+	}
 }
 ```
