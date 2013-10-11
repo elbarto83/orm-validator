@@ -1,14 +1,14 @@
-<?php namespace EllipseSynergie\LaravelDatabase;
+<?php namespace EllipseSynergie\OrmValidator\Eloquent;
 
 use Illuminate\Validation\Factory;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Base model
  *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-class BaseModel extends Eloquent {
+class BaseModel extends Model {
 	
 	/**
 	 * Boot use to register event bindings

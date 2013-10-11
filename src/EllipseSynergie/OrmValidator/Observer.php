@@ -1,4 +1,4 @@
-<?php namespace EllipseSynergie\LaravelDatabase;
+<?php namespace EllipseSynergie\OrmValidator;
 
 /**
  * Base observer

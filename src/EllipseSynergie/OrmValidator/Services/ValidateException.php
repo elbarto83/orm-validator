@@ -1,4 +1,4 @@
-<?php namespace EllipseSynergie\LaravelDatabase\Services;
+<?php namespace EllipseSynergie\OrmValidator\Services;
 
 /**
  * Validation exception

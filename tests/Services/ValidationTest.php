@@ -1,6 +1,6 @@
-<?php namespace EllipseSynergie\LaravelDatabase;
+<?php namespace EllipseSynergie\OrmValidator;
 
-use EllipseSynergie\LaravelDatabase\Services\Validation;
+use EllipseSynergie\OrmValidator\Services\Validation;
 use Mockery as m;
 
 /**
@@ -21,7 +21,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase {
 	}
 	
 	/**
-	 * @expectedException EllipseSynergie\LaravelDatabase\Services\ValidateException
+	 * @expectedException EllipseSynergie\OrmValidator\Services\ValidateException
 	 */
 	public function testValidateFail()
 	{

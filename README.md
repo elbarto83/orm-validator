@@ -34,48 +34,48 @@ php artisan config:publish ellipsesynergie/laravel-database
 
 ## Getting Started
 
-`EllipseSynergie\LaravelDatabase\BaseModel` aims to extend the `Eloquent` base class without changing its core functionality. Since `EllipseSynergie\LaravelDatabase\BaseModel` itself is a descendant of `Illuminate\Database\Eloquent\Model`, all your `EllipseSynergie\LaravelDatabase\BaseModel` models are fully compatible with `Eloquent` and can harness the full power of Laravels awesome ORM.
+`EllipseSynergie\OrmValidator\BaseModel` aims to extend the `Eloquent` base class without changing its core functionality. Since `EllipseSynergie\OrmValidator\BaseModel` itself is a descendant of `Illuminate\Database\Eloquent\Model`, all your `EllipseSynergie\OrmValidator\BaseModel` models are fully compatible with `Eloquent` and can harness the full power of Laravels awesome ORM.
 
-To create a new `EllipseSynergie\LaravelDatabase\BaseModel` model, simply make your model class derive from the `EllipseSynergie\LaravelDatabase\BaseModel` base class.
+To create a new `EllipseSynergie\OrmValidator\BaseModel` model, simply make your model class derive from the `EllipseSynergie\OrmValidator\BaseModel` base class.
 
 ```php
-use EllipseSynergie\LaravelDatabase\BaseModel;
+use EllipseSynergie\OrmValidator\BaseModel;
 
 class Account extends BaseModel {}
 ```
 
-> **Note:** You can freely *co-mingle* your plain-vanilla Eloquent models with `EllipseSynergie\LaravelDatabase\BaseModel` descendants. If a model object doesn't rely upon user submitted content and therefore doesn't require validation - you may leave the Eloquent model class as it is.
+> **Note:** You can freely *co-mingle* your plain-vanilla Eloquent models with `EllipseSynergie\OrmValidator\BaseModel` descendants. If a model object doesn't rely upon user submitted content and therefore doesn't require validation - you may leave the Eloquent model class as it is.
 
 ## Effortless Validation
 
-`EllipseSynergie\LaravelDatabase\BaseModel` models use [Model Observer](http://laravel.com/docs/eloquent#model-observers), advanced Validation Service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
+`EllipseSynergie\OrmValidator\BaseModel` models use [Model Observer](http://laravel.com/docs/eloquent#model-observers), advanced Validation Service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
 
 ### Models Observers
 
-`EllipseSynergie\LaravelDatabase\BaseModel` automaticly register event observer on models `boot()` method. You MUST create a Observer for each of your `EllipseSynergie\LaravelDatabase\BaseModel` models. 
+`EllipseSynergie\OrmValidator\BaseModel` automaticly register event observer on models `boot()` method. You MUST create a Observer for each of your `EllipseSynergie\OrmValidator\BaseModel` models. 
 
 For example, if you have a Account model, you must create a observer in the file `app/models/Observer/Account.php` :
 
 ```php
 <?php namespace Observer;
 
-use EllipseSynergie\LaravelDatabase\Observer;
+use EllipseSynergie\OrmValidator\Observer;
 
 class Account extends Observer {}
 ```
 
-> **Note:** You can keep the Observer *has-is* if you want. By default, the `EllipseSynergie\LaravelDatabase\Observer` will validate data on `creating` and `updating` event.
+> **Note:** You can keep the Observer *has-is* if you want. By default, the `EllipseSynergie\OrmValidator\Observer` will validate data on `creating` and `updating` event.
 
 ### Models Validations Services
 
-`EllipseSynergie\LaravelDatabase\BaseModel` will automaticly use Validation Service of your model when validate data from inside the model or from the Observer. You MUST create a Validation Service for each of your `EllipseSynergie\LaravelDatabase\BaseModel` models. 
+`EllipseSynergie\OrmValidator\BaseModel` will automaticly use Validation Service of your model when validate data from inside the model or from the Observer. You MUST create a Validation Service for each of your `EllipseSynergie\OrmValidator\BaseModel` models. 
 
 For example, if you have a Account model, you must create a validation service in the file `app/models/Validation/Account.php` :
 
 ```php
 <?php namespace Validation;
 
-use EllipseSynergie\LaravelDatabase\Services\Validation as ValidationService;
+use EllipseSynergie\OrmValidator\Services\Validation as ValidationService;
 
 /**
  * Account Validation service
@@ -96,7 +96,7 @@ class Account extends ValidationService {
 
 ## Retrieving Validation Errors
 
-When an `EllipseSynergie\LaravelDatabase\BaseModel` model fails to validate, a `EllipseSynergie\LaravelDatabase\Services\ValidateException` is throw. You can catch the Exception like this :
+When an `EllipseSynergie\OrmValidator\BaseModel` model fails to validate, a `EllipseSynergie\OrmValidator\Services\ValidateException` is throw. You can catch the Exception like this :
 
 ```php
 
@@ -108,7 +108,7 @@ try
 	
 	//Success !!!
 }
-catch (EllipseSynergie\LaravelDatabase\Services\ValidateException $e)
+catch (EllipseSynergie\OrmValidator\Services\ValidateException $e)
 {
 	// Retrive the Illuminate\Validation\Validator object
 	// so you can use it exactly like http://laravel.com/docs/validation

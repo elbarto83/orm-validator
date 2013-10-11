@@ -1,4 +1,4 @@
-<?php namespace EllipseSynergie\LaravelDatabase\Services;
+<?php namespace EllipseSynergie\OrmValidator\Services;
 
 /**
  * Validation service, extend this class to create a new validation service for your model

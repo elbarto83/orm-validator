@@ -1,6 +1,7 @@
 {
-    "name": "ellipsesynergie/laravel-database",
+    "name": "ellipsesynergie/orm-validator",
     "description": "Self-validating, secure and smart models for Laravel 4's Eloquent ORM using Model Observer and advanced Validation service combined with the Laravel's built-in Validator class.",
+    "keywords": ["validation", "laravel", "framework", "eloquent", "database", "sql", "orm", "activerecord", "active record"],
     "authors": [
         {
             "name": "Maxime Beaudoin",
@@ -16,10 +17,10 @@
     },
     "autoload": {
         "classmap": [
-            "src/EllipseSynergie/LaravelDatabase/Exceptions.php"
+            "src/EllipseSynergie/OrmValidator/Exceptions.php"
         ],
         "psr-0": {
-            "EllipseSynergie\\LaravelDatabase": "src/"
+            "EllipseSynergie\\OrmValidator": "src/"
         }
     },
     "minimum-stability": "dev"
