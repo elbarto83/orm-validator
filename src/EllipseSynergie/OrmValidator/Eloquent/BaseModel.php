@@ -5,8 +5,6 @@ use EllipseSynergie\OrmValidator\ValidationServiceNotFound;
 use EllipseSynergie\OrmValidator\ValidationMethodNotFound;
 use Illuminate\Validation\Factory;
 use Illuminate\Database\Eloquent\Model;
-use Cache;
-use Config;
 
 /**
  * Base model
@@ -100,7 +98,7 @@ abstract class BaseModel extends Model {
 		$account = self::findOrFail($id);
 			
 		//Put entry into the cache
-		Cache::section(get_called_class())->put($id, $account, Config::get('cache.maxtime'));
+		\Cache::section(get_called_class())->put($id, $account, Config::get('cache.maxtime'));
 		
 		return $account;
 	}
@@ -141,7 +139,7 @@ abstract class BaseModel extends Model {
 	public function getByIdFromCache($id)
 	{
 		//Get form cache
-		$account = Cache::section(get_called_class())->get($id);
+		$account = \Cache::section(get_called_class())->get($id);
 		
 		//If cache not empty
 		if ($account) {
