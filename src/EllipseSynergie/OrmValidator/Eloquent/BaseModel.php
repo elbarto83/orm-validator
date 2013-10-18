@@ -1,6 +1,6 @@
 <?php namespace EllipseSynergie\OrmValidator\Eloquent;
 
-use EllipseSynergie\OrmValidator\ObserverNotFound;
+use EllipseSynergie\OrmValidator\ModelObserverNotFound;
 use EllipseSynergie\OrmValidator\ValidationServiceNotFound;
 use EllipseSynergie\OrmValidator\ValidationMethodNotFound;
 use Illuminate\Validation\Factory;
@@ -42,7 +42,7 @@ abstract class BaseModel extends Model {
 			
 		//Else the observer is not found
 		} else {
-			throw new ObserverNotFound;
+			throw new ModelObserverNotFound('Model observer ' . static::$observer . ' not found');
 		}
 	}
 
@@ -63,14 +63,14 @@ abstract class BaseModel extends Model {
 			
 		//Else the observer is not found
 		} else {
-			throw new ValidationServiceNotFound;
+			throw new ValidationServiceNotFound('Validation service ' . static::$validationService . ' not found');
 		}
 		
 		#print_r($validator);
 		
 		//If the validation method doesn't  exist
 		if (!method_exists($validator, $action)) {
-			throw new ValidationMethodNotFound;
+			throw new ValidationMethodNotFound('Validation method ' . $action . ' not found');
 		}
 		
 		//Try to validate

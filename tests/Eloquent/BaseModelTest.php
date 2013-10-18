@@ -9,11 +9,11 @@ use Mockery as m;
 class BaseModelTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
-     * @expectedException EllipseSynergie\OrmValidator\ObserverNotFound
+     * @expectedException EllipseSynergie\OrmValidator\ModelObserverNotFound
      */
 	public function testObserverNotFoundException()
 	{
-		$model = new BaseModelStubObserverNotFound;
+		$model = new BaseModelStubModelObserverNotFound;
 	}
 	
 	/**
@@ -35,7 +35,7 @@ class BaseModelTest extends \PHPUnit_Framework_TestCase {
 	}
 }
 
-class BaseModelStubObserverNotFound extends BaseModel {}
+class BaseModelStubModelObserverNotFound extends BaseModel {}
 class BaseModelStubValidationServiceNotFound extends BaseModel {
 	
 	protected static $observer = '\\EllipseSynergie\\OrmValidator\\Observer';
