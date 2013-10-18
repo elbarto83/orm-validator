@@ -48,14 +48,14 @@ class Account extends BaseModel {
 	 * 
 	 * @var string
 	 */
-	protected $validationService = 'Validation\\Account';
+	protected static $validationService = 'Validation\\Account';
 	
 	/**
 	 * The observer class name
 	 * 
 	 * @var string
 	 */
-	protected $observer = 'Observer\\Account';
+	protected static $observer = 'Observer\\Account';
 
 }
 ```
