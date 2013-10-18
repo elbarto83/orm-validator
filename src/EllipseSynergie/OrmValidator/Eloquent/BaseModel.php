@@ -1,5 +1,7 @@
 <?php namespace EllipseSynergie\OrmValidator\Eloquent;
 
+use EllipseSynergie\OrmValidator\ObserverNotFound;
+use EllipseSynergie\OrmValidator\ValidationServiceNotFound;
 use Illuminate\Validation\Factory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,14 +17,14 @@ class BaseModel extends Model {
 	 * 
 	 * @var string
 	 */
-	protected $validationService;
+	protected static $validationService;
 	
 	/**
 	 * The observer class name
 	 * 
 	 * @var string
 	 */
-	protected $observer;
+	protected static $observer;
 	
 	/**
 	 * Boot use to register event bindings
@@ -32,10 +34,10 @@ class BaseModel extends Model {
 		parent::boot();
 		
 		//Check if the observer class exist
-		if (class_exists($this->observer)) {
+		if (class_exists(static::$observer)) {
 			
 			//Create the observer
-			self::observe(new $this->observer);
+			self::observe(new static::$observer);
 			
 		//Else the observer is not found
 		} else {
@@ -58,10 +60,10 @@ class BaseModel extends Model {
 		$service = "\\Validation\\" . get_called_class();
 		
 		//Check if the validation service class exist
-		if (class_exists($this->validationService)) {
+		if (class_exists(static::$validationService)) {
 			
 			//Create the validator
-			$validator = new $this->validationService($this->getAttributes(), $validatorFactory);
+			$validator = new static::$validationService($this->getAttributes(), $validatorFactory);
 			
 		//Else the observer is not found
 		} else {
