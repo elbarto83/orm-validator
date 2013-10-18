@@ -41,7 +41,23 @@ To create a new `EllipseSynergie\OrmValidator\Eloquent\BaseModel` model, simply 
 ```php
 use EllipseSynergie\OrmValidator\Eloquent\BaseModel;
 
-class Account extends BaseModel {}
+class Account extends BaseModel {
+
+	/**
+	 * The validation service class name
+	 * 
+	 * @var string
+	 */
+	protected $validationService = 'Validation\\Account';
+	
+	/**
+	 * The observer class name
+	 * 
+	 * @var string
+	 */
+	protected $observer = 'Observer\\Account';
+
+}
 ```
 
 > **Note:** You can freely *co-mingle* your plain-vanilla Eloquent models with `EllipseSynergie\OrmValidator\Eloquent\BaseModel` descendants. If a model object doesn't rely upon user submitted content and therefore doesn't require validation - you may leave the Eloquent model class as it is.
@@ -54,7 +70,7 @@ class Account extends BaseModel {}
 
 `EllipseSynergie\OrmValidator\Eloquent\BaseModel` automaticly register event observer on models `boot()` method. You MUST create a Observer for each of your `EllipseSynergie\OrmValidator\Eloquent\BaseModel` models. 
 
-For example, if you have a Account model, you must create a observer in the file `app/models/Observer/Account.php` :
+For example, if you have a Account model, you can create a observer in the file `app/models/Observer/Account.php` :
 
 ```php
 <?php namespace Observer;
@@ -70,7 +86,7 @@ class Account extends Observer {}
 
 `EllipseSynergie\OrmValidator\Eloquent\BaseModel` will automaticly use Validation Service of your model when validate data from inside the model or from the Observer. You MUST create a Validation Service for each of your `EllipseSynergie\OrmValidator\Eloquent\BaseModel` models. 
 
-For example, if you have a Account model, you must create a validation service in the file `app/models/Validation/Account.php` :
+For example, if you have a Account model, you can create a validation service in the file `app/models/Validation/Account.php` :
 
 ```php
 <?php namespace Validation;

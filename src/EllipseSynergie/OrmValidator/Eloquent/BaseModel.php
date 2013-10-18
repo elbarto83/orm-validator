@@ -11,26 +11,37 @@ use Illuminate\Database\Eloquent\Model;
 class BaseModel extends Model {
 	
 	/**
+	 * The validation service class name
+	 * 
+	 * @var string
+	 */
+	protected $validationService;
+	
+	/**
+	 * The observer class name
+	 * 
+	 * @var string
+	 */
+	protected $observer;
+	
+	/**
 	 * Boot use to register event bindings
 	 */
 	public static function boot()
-    {
-        parent::boot();        
-        
-		// Setup event bindings using observer
-		$observer = '\\Observer\\' . get_called_class();
+	{
+		parent::boot();
 		
 		//Check if the observer class exist
-		if (class_exists($observer)) {
+		if (class_exists($this->observer)) {
 			
 			//Create the observer
-			self::observe(new $observer);
+			self::observe(new $this->observer);
 			
 		//Else the observer is not found
 		} else {
 			throw new ObserverNotFound;
 		}
-    }
+	}
 
 	/**
 	 * Default validation
@@ -47,10 +58,10 @@ class BaseModel extends Model {
 		$service = "\\Validation\\" . get_called_class();
 		
 		//Check if the validation service class exist
-		if (class_exists($service)) {
+		if (class_exists($this->validationService)) {
 			
 			//Create the validator
-			$validator = new $service($this->getAttributes(), $validatorFactory);
+			$validator = new $this->validationService($this->getAttributes(), $validatorFactory);
 			
 		//Else the observer is not found
 		} else {
