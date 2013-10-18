@@ -2,6 +2,7 @@
 
 use EllipseSynergie\OrmValidator\ObserverNotFound;
 use EllipseSynergie\OrmValidator\ValidationServiceNotFound;
+use EllipseSynergie\OrmValidator\ValidationMethodNotFound;
 use Illuminate\Validation\Factory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-class BaseModel extends Model {
+abstract class BaseModel extends Model {
 	
 	/**
 	 * The validation service class name
@@ -53,21 +54,23 @@ class BaseModel extends Model {
 	 */
 	public function validate($action = 'creating')
 	{
-		//Factory the validator
-		$validatorFactory = new Factory(app('translator'), app());
-		
-		//Create the service validation class name
-		$service = "\\Validation\\" . get_called_class();
 		
 		//Check if the validation service class exist
 		if (class_exists(static::$validationService)) {
 			
-			//Create the validator
-			$validator = new static::$validationService($this->getAttributes(), $validatorFactory);
+			//Factory the validator
+			$validator = $this->factoryValidator();
 			
 		//Else the observer is not found
 		} else {
 			throw new ValidationServiceNotFound;
+		}
+		
+		#print_r($validator);
+		
+		//If the validation method doesn't  exist
+		if (!method_exists($validator, $action)) {
+			throw new ValidationMethodNotFound;
 		}
 		
 		//Try to validate
@@ -148,5 +151,21 @@ class BaseModel extends Model {
 		} else {
 			return $this->getById($id);
 		}
+	}
+	
+	/**
+	 * Factory the validator
+	 * 
+	 * @return \EllipseSynergie\OrmValidator\Services\Validation
+	 */
+	protected function factoryValidator()
+	{
+		//Factory the validator
+		$factory = new Factory(app('translator'), app());
+		
+		//Create the validator
+		$validator = new static::$validationService($this->getAttributes(), $validatorFactory);
+			
+		return $validator;
 	}
 }

@@ -1,4 +1,4 @@
-<?php namespace EllipseSynergie\OrmValidator;
+<?php namespace EllipseSynergie\OrmValidator\Services;
 
 use EllipseSynergie\OrmValidator\Services\Validation;
 use Mockery as m;
