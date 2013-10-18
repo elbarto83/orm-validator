@@ -8,6 +8,13 @@
 class Observer {
 	
 	/**
+	 * Enable caching
+	 * 
+	 * @var int
+	 */
+	public $caching;
+	
+	/**
 	 * Time to live for caching data
 	 * 
 	 * @var int
@@ -19,9 +26,10 @@ class Observer {
 	 * 
 	 * @param int $ttl Time to live for caching data
 	 */
-	public function _construct($ttl = 3600)
+	public function _construct($caching = true, $ttl = 3600)
 	{
 		$this->cacheTTL = $ttl;
+		$this->caching = $caching;
 	}
 	
 	/**
@@ -85,8 +93,9 @@ class Observer {
 	 */
 	public function saved($model)
 	{
-		//Put into cache
-		Cache::section(get_class($model))->put($model->id, $model, $this->cacheTTL);
+		//If the cache is enabled, put into cache
+		if ($this->caching)
+			Cache::section(get_class($model))->put($model->id, $model, $this->cacheTTL);
 	}
 	
 	/**
@@ -106,8 +115,9 @@ class Observer {
 	 */
 	public function deleted($model)
 	{
-		//Put into cache
-		Cache::section(get_class($model))->forget($model->id);
+		//If the cache is enabled, delete from cache
+		if ($this->caching)
+			Cache::section(get_class($model))->forget($model->id);
 	}
 	
 	/**
@@ -127,7 +137,8 @@ class Observer {
 	 */
 	public function restored($model)
 	{
-		//Put into cache
-		Cache::section(get_class($model))->put($model->id, $model, $this->cacheTTL);
+		//If the cache is enabled, put into cache
+		if ($this->caching)
+			Cache::section(get_class($model))->put($model->id, $model, $this->cacheTTL);
 	}
 }

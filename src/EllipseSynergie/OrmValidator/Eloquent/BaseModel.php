@@ -37,7 +37,7 @@ class BaseModel extends Model {
 		if (class_exists(static::$observer)) {
 			
 			//Create the observer
-			self::observe( new static::$observer( Config::get('orm-validator::cache.ttl')) );
+			self::observe( new static::$observer(Config::get('orm-validator::cache.caching'), Config::get('orm-validator::cache.ttl')) );
 			
 		//Else the observer is not found
 		} else {
