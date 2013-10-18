@@ -154,6 +154,26 @@ abstract class BaseModel extends Model {
 	}
 	
 	/**
+	 * Get all resource from cache
+	 */
+	public function getAllFromCache()
+	{
+		//Get form cache
+		$account = \Cache::section(get_called_class())->get('all');
+		
+		//If cache not empty
+		if ($account) {
+			
+			//Return the account
+			return $account;
+			
+		//Else not found in the cache
+		} else {
+			return $this->all();
+		}
+	}
+	
+	/**
 	 * Factory the validator
 	 * 
 	 * @return \EllipseSynergie\OrmValidator\Services\Validation
