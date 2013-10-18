@@ -161,7 +161,7 @@ abstract class BaseModel extends Model {
 	protected function factoryValidator()
 	{
 		//Factory the validator
-		$factory = new Factory(app('translator'), app());
+		$validatorFactory = new Factory(app('translator'), app());
 		
 		//Create the validator
 		$validator = new static::$validationService($this->getAttributes(), $validatorFactory);
