@@ -8,6 +8,23 @@
 class Observer {
 	
 	/**
+	 * Time to live for caching data
+	 * 
+	 * @var int
+	 */
+	public $cacheTTL;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param int $ttl Time to live for caching data
+	 */
+	public function _construct($ttl = 3600)
+	{
+		$this->cacheTTL = $ttl;
+	}
+	
+	/**
 	 * Creating hook
 	 * 
 	 * @param Eloquent $model
@@ -69,7 +86,7 @@ class Observer {
 	public function saved($model)
 	{
 		//Put into cache
-		Cache::section(get_class($model))->put($model->id, $model, Config::get('cache.maxtime'));
+		Cache::section(get_class($model))->put($model->id, $model, $this->cacheTTL);
 	}
 	
 	/**
@@ -111,6 +128,6 @@ class Observer {
 	public function restored($model)
 	{
 		//Put into cache
-		Cache::section(get_class($model))->put($model->id, $model, Config::get('cache.maxtime'));
+		Cache::section(get_class($model))->put($model->id, $model, $this->cacheTTL);
 	}
 }

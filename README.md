@@ -1,6 +1,6 @@
 # ORM validator
 
-Self-validating, secure and smart models for Laravel 4's Eloquent ORM using [Model Observer](http://laravel.com/docs/eloquent#model-observers) and advanced Validation service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
+Self-validating, secure and smart models with caching for Laravel 4's Eloquent ORM using [Model Observer](http://laravel.com/docs/eloquent#model-observers) and advanced Validation service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
 
 ### Status
 
@@ -68,7 +68,7 @@ class Account extends BaseModel {
 
 ### Models Observers
 
-`EllipseSynergie\OrmValidator\Eloquent\BaseModel` automaticly register event observer on models `boot()` method. You MUST create a Observer for each of your `EllipseSynergie\OrmValidator\Eloquent\BaseModel` models. 
+`EllipseSynergie\OrmValidator\Eloquent\BaseModel` automaticly register event observer on models `boot()` method. You MUST create a Observer for each of your `EllipseSynergie\OrmValidator\Eloquent\BaseModel` models. The observer will also cache data on `saved`, `restored` and delete automaticly the cache on `delete` event.
 
 For example, if you have a Account model, you can create a observer in the file `app/models/Observer/Account.php` :
 
