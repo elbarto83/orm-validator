@@ -95,13 +95,10 @@ abstract class BaseModel extends Model {
 	 */
 	public function getById($id)
 	{
-		//Find the account
-		$account = self::findOrFail($id);
-			
-		//Put entry into the cache
-		\Cache::section(get_called_class())->put($id, $account, Config::get('cache.maxtime'));
+		//Find the result
+		$result = self::findOrFail($id);
 		
-		return $account;
+		return $result;
 	}
 	
 	/**
@@ -111,10 +108,10 @@ abstract class BaseModel extends Model {
 	 */
 	public function deleteById($id)
 	{
-		$account = $this->getById($id);
-		$account->delete();
+		$result = $this->getById($id);
+		$result->delete();
 		
-		return $account;
+		return $result;
 	}
 	
 	/**
@@ -124,12 +121,12 @@ abstract class BaseModel extends Model {
 	 */
 	public function updateById($input, $id)
 	{
-		$account = $this->getById($id);
+		$result = $this->getById($id);
 		
-		$account->fill($input);
-		$account->save();
+		$result->fill($input);
+		$result->save();
 		
-		return $account;
+		return $result;
 	}
 	
 	/**
@@ -140,37 +137,90 @@ abstract class BaseModel extends Model {
 	public function getByIdFromCache($id)
 	{
 		//Get form cache
-		$account = \Cache::section(get_called_class())->get($id);
+		$result = \Cache::section(get_called_class())->get($id);
 		
 		//If cache not empty
-		if ($account) {
+		if ($result) {
 			
-			//Return the account
-			return $account;
+			//Return the result
+			return $result;
 			
 		//Else not found in the cache
 		} else {
-			return $this->getById($id);
+			
+			//Get by id
+			$result = $this->getById($id);
+			
+			//Put entry into the cache
+			\Cache::section(get_called_class())->put($id, $result, Config::get('cache.maxtime'));
 		}
+	}
+	
+/**
+	 * Build get all query
+	 */
+	protected function buildGetAllQuery($filter)
+	{
+		//Build query
+		$query = $this;
+		
+		//If we want to take a limit entries but we can't take more then 500 entries by request
+		if	(isset($filter['take']) AND $filter['take'] < 500) {
+			$query = $query->take($filter['take']);
+			
+		//By default, we take only 25 entries
+		} else {
+			$query = $query->take(25);
+		}
+			
+		//If we want to skip entries
+		if(isset($filter['skip']))
+			$query = $query->take($filter['skip']);
+			
+		//If we want to skip entries
+		if(isset($filter['orderBy']) AND isset($filter['orderByOption']))
+			$query = $query->orderBy($filter['orderBy'], $filter['orderByOption']);
+		
+		//Return the current query state
+		return $query;
+	}
+
+	/**
+	 * Get all resource
+	 */
+	public function getAll($filter)
+	{
+		//Build get all query
+		$query = $this->buildGetAllQuery($filter);
+		
+		//Return the current query state
+		return $query->get();
 	}
 	
 	/**
 	 * Get all resource from cache
 	 */
-	public function getAllFromCache()
+	public function getAllFromCache($filter = null)
 	{
 		//Get form cache
-		$account = \Cache::section(get_called_class())->get('all');
+		$result = \Cache::section(get_called_class())->get('all:' . json_encode($filter));
 		
 		//If cache not empty
-		if ($account) {
+		if ($result) {
 			
-			//Return the account
-			return $account;
+			//Return the result
+			return $result;
 			
 		//Else not found in the cache
 		} else {
-			return $this->all();
+			
+			//Get all from database
+			$results = $this->getAll($filter);
+			
+			//Put entry into the cache
+			\Cache::section(get_called_class())->put('all:' . json_encode($filter), $results, Config::get('cache.maxtime'));
+			
+			return $results;
 		}
 	}
 	
