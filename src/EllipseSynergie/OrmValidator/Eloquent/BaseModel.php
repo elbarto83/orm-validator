@@ -5,6 +5,7 @@ use EllipseSynergie\OrmValidator\ValidationServiceNotFound;
 use EllipseSynergie\OrmValidator\ValidationMethodNotFound;
 use Illuminate\Validation\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Config;
 
 /**
  * Base model
