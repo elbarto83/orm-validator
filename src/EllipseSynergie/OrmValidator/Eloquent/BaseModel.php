@@ -153,6 +153,8 @@ abstract class BaseModel extends Model {
 			
 			//Put entry into the cache
 			\Cache::section(get_called_class())->put($id, $result, Config::get('cache.maxtime'));
+			
+			return $result;
 		}
 	}
 	
