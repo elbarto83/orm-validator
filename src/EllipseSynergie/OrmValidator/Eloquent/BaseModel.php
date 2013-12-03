@@ -89,19 +89,6 @@ abstract class BaseModel extends Model
 	}
 
 	/**
-	 * Get resource by id
-	 *
-	 * @param int $id        	
-	 */
-	public function getById($id)
-	{
-		// Find the result
-		$result = self::findOrFail($id);
-		
-		return $result;
-	}
-
-	/**
 	 * Find all by ids
 	 *
 	 * @param array $ids        	
@@ -113,39 +100,11 @@ abstract class BaseModel extends Model
 	}
 
 	/**
-	 * Delete resource by id
-	 *
-	 * @param int $id        	
-	 */
-	public function deleteById($id)
-	{
-		$result = $this->getById($id);
-		$result->delete();
-		
-		return $result;
-	}
-
-	/**
-	 * Update resource by id
-	 *
-	 * @param int $id        	
-	 */
-	public function updateById($input, $id)
-	{
-		$result = $this->getById($id);
-		
-		$result->fill($input);
-		$result->save();
-		
-		return $result;
-	}
-
-	/**
 	 * Get resource by id from cache
 	 *
 	 * @param int $id        	
 	 */
-	public function getByIdFromCache($id)
+	public function findFromCache($id)
 	{
 		// Get form cache
 		$result = \Cache::section(get_called_class())->get($id);
@@ -160,7 +119,7 @@ abstract class BaseModel extends Model
 		} else {
 			
 			// Get by id
-			$result = $this->getById($id);
+			$result = static::find($id);
 			
 			// Put entry into the cache
 			\Cache::section(get_called_class())->put($id, $result, Config::get('cache.maxtime'));
@@ -168,50 +127,9 @@ abstract class BaseModel extends Model
 	}
 
 	/**
-	 * Build get all query
-	 */
-	protected function buildGetAllQuery($filter)
-	{
-		// Build query
-		$query = $this;
-		
-		// If we want to take a limit entries but we can't take more then 500 entries by request
-		if (isset($filter['take']) and $filter['take'] < 500) {
-			$query = $query->take($filter['take']);
-			
-			// By default, we take only 25 entries
-		} else {
-			$query = $query->take(25);
-		}
-		
-		// If we want to skip entries
-		if (isset($filter['skip']))
-			$query = $query->skip($filter['skip']);
-			
-			// If we want to skip entries
-		if (isset($filter['orderBy']) and isset($filter['orderByOption']))
-			$query = $query->orderBy($filter['orderBy'], $filter['orderByOption']);
-			
-			// Return the current query state
-		return $query;
-	}
-
-	/**
-	 * Get all resource
-	 */
-	public function getAll($filter)
-	{
-		// Build get all query
-		$query = $this->buildGetAllQuery($filter);
-		
-		// Return the current query state
-		return $query->get();
-	}
-
-	/**
 	 * Get all resource from cache
 	 */
-	public function getAllFromCache($filter = null)
+	public function allFromCache($filter = null)
 	{
 		// Get form cache
 		$result = \Cache::section(get_called_class())->get('all:' . json_encode($filter));
