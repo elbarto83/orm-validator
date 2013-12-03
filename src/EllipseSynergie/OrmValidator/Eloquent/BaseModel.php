@@ -109,7 +109,7 @@ abstract class BaseModel extends Model
 	 */
 	public function findAllByIds(array $ids)
 	{
-		return $this->whereIn(self::$primaryKey, $ids)->get();
+		return $this->whereIn($this->primaryKey, $ids)->get();
 	}
 
 	/**
