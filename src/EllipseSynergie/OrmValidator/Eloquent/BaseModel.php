@@ -153,8 +153,6 @@ abstract class BaseModel extends Model {
 			
 			//Put entry into the cache
 			\Cache::section(get_called_class())->put($id, $result, Config::get('cache.maxtime'));
-			
-			return $result;
 		}
 	}
 	
@@ -177,7 +175,7 @@ abstract class BaseModel extends Model {
 			
 		//If we want to skip entries
 		if(isset($filter['skip']))
-			$query = $query->take($filter['skip']);
+			$query = $query->skip($filter['skip']);
 			
 		//If we want to skip entries
 		if(isset($filter['orderBy']) AND isset($filter['orderByOption']))
