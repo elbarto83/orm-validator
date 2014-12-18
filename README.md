@@ -1,3 +1,6 @@
+## !!! DEPRECATED !!!
+**This package is no longer actively maintained. Use [laravelbook/ardent](https://github.com/laravelbook/ardent) instead**
+
 # ORM validator
 
 Self-validating, secure and smart models with caching for Laravel 4's Eloquent ORM using [Model Observer](http://laravel.com/docs/eloquent#model-observers) and advanced Validation service combined with the Laravel's built-in [Validator class](http://four.laravel.com/docs/validation).
